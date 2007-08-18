@@ -1,17 +1,16 @@
 %define libname %mklibname epplet 0
-%define eprefix %_prefix/X11R6
+%define eprefix %_prefix
 Name: epplets
 Summary: Applets for enlightenment
-Version: 0.9
-Release: %mkrel 2
-Source: %{name}-%{version}.tar.bz2 
+Version: 0.10
+Release: %mkrel 1
+Source: %{name}-%{version}.tar.gz
 Group: Graphical desktop/Enlightenment
 URL: http://www.enlightenment.org
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
 BuildRequires:	ImageMagick
 BuildRequires:	libesound-devel
 BuildRequires:	libjpeg-static-devel	
-BuildRequires:	imlib-devel
 BuildRequires:	texinfo
 BuildRequires:	mesaglut-devel
 BuildRequires:  libcdaudio-devel
@@ -73,7 +72,7 @@ export EBIN=$RPM_BUILD_ROOT%{eprefix}/bin
 #perl -p -i -e 's/\$\(EROOT\)\//\$\(DESTDIR\)\/\$\(EROOT\)\//g' epplets/Makefile
 make install DESTDIR=$RPM_BUILD_ROOT
 
-cd $RPM_BUILD_ROOT/usr/X11R6/share/e16/epplet_icons
+cd $RPM_BUILD_ROOT/usr/share/e16/epplet_icons
 for f in `find . -name '*.icon'`; do
   convert -geometry 16x16 $f $f.png
   mv -f $f.png $f
