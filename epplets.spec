@@ -7,6 +7,7 @@ Release: %mkrel 1
 Source: %{name}-%{version}.tar.gz
 Group: Graphical desktop/Enlightenment
 URL: http://www.enlightenment.org
+BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
 BuildRequires:	ImageMagick
 BuildRequires:	libesound-devel
 BuildRequires:	libjpeg-static-devel	
