@@ -2,7 +2,7 @@
 %define eprefix %_prefix
 Name: epplets
 Summary: Applets for enlightenment
-Version: 0.10
+Version: 0.11
 Release: %mkrel 1
 Source: %{name}-%{version}.tar.gz
 Group: Graphical desktop/Enlightenment
