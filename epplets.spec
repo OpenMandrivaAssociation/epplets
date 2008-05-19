@@ -83,8 +83,6 @@ chrpath -d %buildroot%eprefix/bin/*
      
 %postun -n %libname -p /sbin/ldconfig  
 
-#%clean
-
 %files
 %defattr(-,root,root)
 %doc ChangeLog
