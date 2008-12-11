@@ -8,7 +8,7 @@ Source: %{name}-%{version}.tar.gz
 Group: Graphical desktop/Enlightenment
 URL: http://www.enlightenment.org
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
-BuildRequires:	ImageMagick
+BuildRequires:	imagemagick
 BuildRequires:	libesound-devel
 BuildRequires:	libjpeg-static-devel	
 BuildRequires:	texinfo
