@@ -3,7 +3,7 @@
 Name: epplets
 Summary: Applets for enlightenment
 Version: 0.12
-Release: %mkrel 1
+Release: %mkrel 2
 Source: %{name}-%{version}.tar.gz
 Group: Graphical desktop/Enlightenment
 URL: http://www.enlightenment.org
