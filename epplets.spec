@@ -6,7 +6,7 @@ Version: 0.12
 Release: %mkrel 3
 Source: %{name}-%{version}.tar.gz
 Group: Graphical desktop/Enlightenment
-URL: http://www.enlightenment.org
+URL: https://www.enlightenment.org
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
 BuildRequires:	imagemagick
 BuildRequires:	libesound-devel
