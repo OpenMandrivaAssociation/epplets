@@ -1,24 +1,20 @@
-%define libname %mklibname epplet 0
+%define libname %mklibname epplet
 %define eprefix %_prefix
 Name: epplets
 Summary: Applets for enlightenment
-Version: 0.12
-Release: 4
-Source: %{name}-%{version}.tar.gz
+Version: 0.18
+Release: 1
+Source0:	http://downloads.sourceforge.net/enlightenment/e16-epplets-%{version}.tar.xz
 Group: Graphical desktop/Enlightenment
 URL: https://www.enlightenment.org
-BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
+
 BuildRequires:	make
-BuildRequires:	imagemagick
-BuildRequires:	libesound-devel
-BuildRequires:	libjpeg-static-devel	
-BuildRequires:	texinfo
-BuildRequires:	mesaglut-devel
-BuildRequires:  libcdaudio-devel
-BuildRequires:  chrpath
-BuildRequires:  imlib2-devel
-Obsoletes: Epplets
-Provides: Epplets = %{version}
+BuildRequires:	pkgconfig(glut)
+BuildRequires:	pkgconfig(imlib2)
+BuildRequires:	pkgconfig(glu)
+
+Provides: Epplets = %{EVRD}
+Provides: e16-epplets = %{EVRD}
 License: GPL
 
 %description
@@ -52,57 +48,28 @@ load monitor, aswell as a E-Biff
 This is needed for building Epplets.
 
 %prep
-rm -rf $RPM_BUILD_ROOT
-
-%setup -q 
+%autosetup -p1
 
 %build
-export EROOT=%{eprefix}/share/enlightenment
-export EBIN=%{eprefix}/bin
-CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" ./configure \
-	--prefix=%{eprefix} --enable-fsstd --libdir=%eprefix/%_lib --disable-auto-respawn
-
-perl -p -i -e 's/ppp0/lo/g' epplets/E-NetGraph.c
-
-%make
+%{__sed} -i -e 's/-rpath $(libdir)//' epplets/Makefile.in
+%configure
+%make_build
 
 %install
-mkdir -p $RPM_BUILD_ROOT/%{eprefix}
-export EROOT=$RPM_BUILD_ROOT%{eprefix}/share/enlightenment
-export EBIN=$RPM_BUILD_ROOT%{eprefix}/bin
-#perl -p -i -e 's/\$\(EROOT\)\//\$\(DESTDIR\)\/\$\(EROOT\)\//g' epplets/Makefile
-make install DESTDIR=$RPM_BUILD_ROOT
-
-cd $RPM_BUILD_ROOT/usr/share/e16/epplet_icons
-for f in `find . -name '*.icon'`; do
-  convert -geometry 16x16 $f $f.png
-  mv -f $f.png $f
-done
-chrpath -d %buildroot%eprefix/bin/*
-
-%if %mdkversion < 200900
-%post -n %libname -p /sbin/ldconfig   
-%endif
-     
-%if %mdkversion < 200900
-%postun -n %libname -p /sbin/ldconfig  
-%endif
+%make_install
+rm -f %{buildroot}%{_libdir}/libepplet{,_glx}.{a,la}
 
 %files
-%defattr(-,root,root)
-%doc ChangeLog
-%eprefix/bin/*
-%eprefix/share/e16/epplet*
+%doc ChangeLog 
+%{_libdir}/libepplet.so.*
+%{_libdir}/libepplet_glx.so.*
+%{_bindir}/E*.epplet
+%{_datadir}/e16/epplet_icons
+%{_datadir}/e16/epplet_data
 
-%files -n %libname
-%defattr(-,root,root)
-%eprefix/%_lib/*.so.*
-
-%files -n %libname-devel
-%defattr(-,root,root)
-%eprefix/include/*
-%eprefix/%_lib/*.so
-%attr(644,root,root) %eprefix/%_lib/*a
-
+%files devel
+%{_includedir}/epplet.h
+%{_libdir}/libepplet.so
+%{_libdir}/libepplet_glx.so
 
 
