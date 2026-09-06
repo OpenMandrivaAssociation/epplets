@@ -1,5 +1,6 @@
 %define libname %mklibname epplet
-%define eprefix %_prefix
+%define devname %mklibname -d epplet
+
 Name: epplets
 Summary: Applets for enlightenment
 Version: 0.18
@@ -33,14 +34,14 @@ load monitor, aswell as a E-Biff
 
 This is needed for running Epplets.
 
-%package -n %libname-devel
+%package -n %{devname}
 Group: Development/C
 Summary: Development libraries for Enlightenment applets
 Provides: libepplet-devel = %version-%release
 Provides: epplets-devel = %version-%release
 Requires: %libname = %version
 
-%description -n %libname-devel
+%description -n %{devname}
 An epplet is an applet designed specificly for use with enlightenment
 This packages contains several, two cpu load meters, two clocks, a network
 load monitor, aswell as a E-Biff
@@ -67,7 +68,7 @@ rm -f %{buildroot}%{_libdir}/libepplet{,_glx}.{a,la}
 %{_datadir}/e16/epplet_icons
 %{_datadir}/e16/epplet_data
 
-%files devel
+%files -n %{devname}
 %{_includedir}/epplet.h
 %{_libdir}/libepplet.so
 %{_libdir}/libepplet_glx.so
