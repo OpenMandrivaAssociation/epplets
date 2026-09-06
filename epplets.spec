@@ -49,7 +49,7 @@ load monitor, aswell as a E-Biff
 This is needed for building Epplets.
 
 %prep
-%autosetup -p1
+%autosetup e16-%{name}-%{version} -p1
 
 %build
 %{__sed} -i -e 's/-rpath $(libdir)//' epplets/Makefile.in
